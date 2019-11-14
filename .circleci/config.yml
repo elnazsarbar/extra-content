@@ -4,12 +4,22 @@ orbs:
       aws-s3: circleci/aws-s3@1.0.0 #imports the s3 orb in the circleci namespace
 
 jobs:
-      build:
+      upload_to_s3:
             docker:
                   - image: 'circleci/python:2.7'
             steps:
                   - checkout
+                  - run:
+                          - name: Check branch to set s3 bucket path
+                          - command: |
+                              if [ "$CIRCLE_BRANCH" = "develop" ]; then
+                                  echo 'export S3_BUCKET_PATH="staging"' >> $BASH_ENV
+                              else if ["$CIRCLE_BRANCH" = "master"]; then
+                                  echo 'export S3_BUCKET_PATH="production"' >> $BASH_ENV
+                              else
+                                  echo 'export S3_BUCKET_PATH="tests/test-$(echo $CIRCLE_SHA1 | cut -c -7)/"' >> $BASH_ENV
+                              fi
                   - aws-s3/copy:
                           from: '*.html'
-                          #to: 's3://${AWS_BUCKET}/test-$(echo $CIRCLE_SHA1 | cut -c -7)/'
-                          to: 's3://${AWS_BUCKET}/test-latest/'
+                          #to: 's3://${AWS_BUCKET}/'
+                          to: 's3://${AWS_BUCKET}/${S3_BUCKET_PATH}/'
