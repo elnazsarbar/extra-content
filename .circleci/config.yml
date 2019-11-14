@@ -4,7 +4,7 @@ orbs:
       aws-s3: circleci/aws-s3@1.0.0 #imports the s3 orb in the circleci namespace
 
 jobs:
-      upload_to_s3:
+      build:
             docker:
                   - image: 'circleci/python:2.7'
             steps:
