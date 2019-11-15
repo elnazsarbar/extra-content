@@ -13,8 +13,8 @@ jobs:
                           name: Check branch to set s3 bucket path
                           command: |
                               echo ${CIRCLE_BRANCH}
-                              if [ "${CIRCLE_BRANCH}" = "develop" ]; then
-                                  echo 'export S3_BUCKET_PATH="staging"' >> $BASH_ENV
+                              if [ "${CIRCLE_BRANCH}" = "testing" ]; then
+                                  echo 'export S3_BUCKET_PATH="testing"' >> $BASH_ENV
                               else if ["${CIRCLE_BRANCH}" = "master"]; then
                                   echo 'export S3_BUCKET_PATH="production"' >> $BASH_ENV
                               else
