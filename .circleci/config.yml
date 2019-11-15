@@ -16,7 +16,7 @@ jobs:
                               if [ "${CIRCLE_BRANCH}" == "testing" ]; then
                                     echo 'here on testing'
                                     echo 'export S3_BUCKET_PATH="testing"' >> $BASH_ENV
-                              else if ["${CIRCLE_BRANCH}" == "master"]; then
+                              elif ["${CIRCLE_BRANCH}" == "master"]; then
                                     echo 'here on master'
                                     echo 'export S3_BUCKET_PATH="production"' >> $BASH_ENV
                               else
