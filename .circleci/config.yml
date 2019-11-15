@@ -18,7 +18,7 @@ jobs:
                               else if ["${CIRCLE_BRANCH}" = "master"]; then
                                   echo 'export S3_BUCKET_PATH="production"' >> $BASH_ENV
                               else
-                                  echo 'export S3_BUCKET_PATH="test-$(echo $CIRCLE_SHA1 | cut -c -7)/"' >> $BASH_ENV
+                                  echo 'export S3_BUCKET_PATH=test-$(echo ${CIRCLE_SHA1} | cut -c -7)/' >> $BASH_ENV
                               fi
                               echo ${S3_BUCKET_PATH}
                   - aws-s3/copy:
